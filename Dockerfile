@@ -8,4 +8,10 @@ FROM alpine:3.6
 RUN apk add --no-cache ca-certificates
 COPY --from=builder /go/klar /klar
 
+RUN apk -v --update add python curl && \
+    curl -O https://bootstrap.pypa.io/get-pip.py && \
+    python get-pip.py && \
+    pip install awscli --upgrade
+
+
 ENTRYPOINT ["/klar"]
